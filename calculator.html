@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CALCULATOR</title>
+        <style>
+            
+            
+            #board{
+                
+               
+               
+               align-items: center;
+               justify-content: space-evenly;
+                 height: 430px;
+                border-radius: 10px;
+                width: 345px;
+                border: 1px solid white;
+/*             
+                 /* grid-template-columns: repeat(4, 70px);
+                grid-template-rows: repeat(4, 50px); */ 
+                
+               margin: 100px 500px ;
+               box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            
+          
+                
+               }
+               #input{
+            
+                height: 65px;
+                width: 300px;
+                /* margin-top: 60px; */
+                margin: 20px;
+                margin-bottom:5px;
+                border-radius: 8px; 
+             
+        
+                box-shadow: rgba(249, 238, 238, 0.24) 0px 3px 8px;
+
+               }
+               #flex{
+              
+                height: 280px;
+                width: 300px;
+                /* margin-top: 60px; */
+                margin: 20px;
+                font-size: larger;
+                display: grid;
+                grid-template-columns: repeat(4,1fr);
+                gap: 6px;
+                text-align: center;
+                line-height: 58px;
+              
+               
+               }
+            
+               button{
+                border-radius: 5px;
+               }
+               
+            button:hover{
+              background-color: rgb(222, 222, 222);
+            }
+               
+               #flex > div{
+               
+                 font-weight: bold;
+                border-radius: 25px;
+                font-size: 25px;
+                box-shadow: rgba(23, 21, 21, 0.24) 0px 3px 8px;
+
+               }
+               .black:hover {
+                 background-color: rgb(101, 101, 101);
+                 
+               }
+               .red:hover{
+                background-color: rgb(82, 82, 82);
+                
+               
+               }
+                
+               
+               .black{
+                background-color: black;
+                color: white;
+               }
+               .red{
+                background-color: red;
+                color: white;
+               }
+            
+             
+
+
+        </style>
+    </head>
+    <body>
+        
+           <div id="board">
+            <input type="text" id="input">
+       
+        
+        <div id="flex"> 
+            <Button>1</Button>
+            <Button>2</Button>
+            <Button>3</Button>
+            <Button  id="operator"  class="black">+</Button>
+            <Button>4</Button>
+            <Button>5</Button>
+            <Button>6</Button>
+            <Button  id="operator" class="black">-</Button>
+            <Button>7</Button>
+            <Button>8</Button>
+            <Button>9</Button>
+            <Button id="operator" class="black">x</Button>
+            <Button id="delete"  class="red">c</Button>
+            <Button>0</Button>
+            <Button  id="equal" class="black">=</Button>
+            <Button  id="operator" class="black">/</Button>
+        </div>
+     </div>
+    </body>
+    <script>
+       let keypad = document.querySelectorAll('#flex button');
+    let operatorButtons = document.querySelectorAll('#operator');
+    let deleteButton = document.querySelector('#delete');
+    let head = document.getElementById("input");
+
+    let firstnumber = "";
+    let isfirstbutton = true;
+    let secondnumber = "";
+    let operator = "";
+
+    keypad.forEach(button => {
+      button.addEventListener('click', function() {
+        if (isfirstbutton) {
+          firstnumber += button.innerText;
+          head.value = firstnumber;
+        } else {
+          secondnumber += button.innerText;
+          head.value = secondnumber;
+        }
+      });
+    });
+
+    operatorButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        isfirstbutton = false;
+        operator = button.innerText;
+      });
+    });
+
+    deleteButton.addEventListener('click', function() {
+      clearCalculator();
+    });
+
+    document.getElementById("equal").addEventListener('click', function() {
+      head.value = calculate(firstnumber, secondnumber, operator);
+    });
+
+    function calculate(firstnumber, secondnumber, operator) {
+      if (operator && secondnumber !== "") {
+        switch (operator) {
+          case "+":
+            return Number(firstnumber) + Number(secondnumber);
+          case "-":
+            return Number(firstnumber) - Number(secondnumber);
+          case "/":
+            return Number(firstnumber) / Number(secondnumber);
+          case "*":
+            return Number(firstnumber) * Number(secondnumber);
+          default:
+            return "Error";
+        }
+      } else {
+        return "Error";
+      }
+    }
+
+    function clearCalculator() {
+      firstnumber = "";
+      isfirstbutton = true;
+      secondnumber = "";
+      operator = "";
+      head.value = "";
+    }
+    </script>
+</html>
+
+
+
+ 
+         
